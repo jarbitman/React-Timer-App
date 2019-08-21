@@ -26,7 +26,6 @@ class Timer extends React.Component {
       interval: null,
       isRunning: false,
       stops: [...this.state.stops, new Date ()]
-//      elapsedArray: [...this.state.elapsedArray, this.state.elapsed - this.arraySum(this.state.elapsed)]
     }));
   }
 
@@ -34,6 +33,15 @@ class Timer extends React.Component {
     this.setState((prevState, {lap}) => ({
       laps: [...this.state.laps, this.formatTime(this.getCurrentTime())]
     }))
+  }
+
+  reset = () => {
+    this.stopTimer();
+    this.setState(() => ({
+      laps: [],
+      starts: [],
+      stops: [],
+    }));
   }
 
   getStartButton = () => {
@@ -58,6 +66,12 @@ class Timer extends React.Component {
     }
   }
 
+  getResetButton = () => {
+    if (this.state.starts.length) {
+      return (<button onClick={this.reset}>Reset</button>)
+    }
+  }
+
   getCurrentTime = () => {
     let elapsed = 0;
     for (let i = 0; i < this.state.stops.length; i++) {
@@ -73,8 +87,6 @@ class Timer extends React.Component {
     return (number < 10 ? '0' : '') + number
   }
 
-
-
   formatTime = (time) => {
     let remTime = time/1000;
     const hr = Math.floor(remTime / 3600);
@@ -86,19 +98,17 @@ class Timer extends React.Component {
   }
 
   getLaps = () => {
-    let html = '';
-    for (let i = 0; i < this.state.laps.length; i++) {
-      html += `Lap ${i+1}: ${this.state.laps[i]}<br>`;
-    }
-    return {__html: html};
+    return this.state.laps.map(
+      (lapTime, i) => <div class="lap" key="lap{i+1}">Lap {i+1}: {lapTime}</div>
+    );
   }
 
   render = () => {
     return (
       <div>
         {this.formatTime(this.getCurrentTime())}<br /><br />
-        {this.getStartButton()} {this.getStopButton()} {this.getLapButton()}<br /><br />
-        <div dangerouslySetInnerHTML={this.getLaps()}></div>
+        {this.getStartButton()} {this.getStopButton()} {this.getLapButton()} {this.getResetButton()}<br /><br />
+        {this.getLaps()}
       </div>
     );
   }
