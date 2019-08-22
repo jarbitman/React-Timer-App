@@ -1,4 +1,5 @@
 import React from 'react';
+import {FaTrashAlt} from 'react-icons/fa';
 
 class Timer extends React.Component {
   constructor(props) {
@@ -41,6 +42,17 @@ class Timer extends React.Component {
       laps: [],
       starts: [],
       stops: [],
+    }));
+  }
+
+  filterLapArray = (lapArray, itemToRemove) => {
+    return lapArray.filter((item, i) => item !== itemToRemove);
+  }
+
+  deleteLap = (e) => {
+    this.newLapArray = this.filterLapArray(this.state.laps, e.target.closest(".lap").attributes.laptime.value);
+    this.setState((prevState) => ({
+      laps: this.newLapArray
     }));
   }
 
@@ -99,7 +111,7 @@ class Timer extends React.Component {
 
   getLaps = () => {
     return this.state.laps.map(
-      (lapTime, i) => <div class="lap" key="lap{i+1}">Lap {i+1}: {lapTime}</div>
+      (lapTime, i) => <div className="lap" laptime={lapTime} key={'lap' + (i+1).toString()}>Lap {i+1}: {lapTime} <FaTrashAlt onClick={this.deleteLap} id={'lap' + (i+1).toString()} laptime={lapTime} /></div>
     );
   }
 
