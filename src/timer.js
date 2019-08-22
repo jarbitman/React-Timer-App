@@ -56,31 +56,39 @@ class Timer extends React.Component {
     }));
   }
 
-  getStartButton = () => {
+  StartButton = () => {
     if (!this.state.isRunning) {
-      return (<button onClick={this.startTimer}>Start</button>)
+      let startText = 'Start';
+      if (this.state.starts.length) {
+        startText = 'Resume';
+      }
+      return (<button onClick={this.startTimer} className="StartButton">{startText}</button>)
     } else {
       return '';
     }
   }
 
-  getStopButton = () => {
+  StopButton = () => {
     if (this.state.isRunning) {
-      return (<button onClick={this.stopTimer}>Stop</button>)
+      return (<button onClick={this.stopTimer} className="StopButton">Stop</button>)
     } else {
       return '';
     }
   }
 
-  getLapButton = () => {
+  LapButton = () => {
     if (this.state.isRunning) {
-      return (<button onClick={this.lap}>Lap</button>)
+      return (<button onClick={this.lap} className="LapButton">Lap</button>)
+    } else {
+      return '';
     }
   }
 
-  getResetButton = () => {
+  ResetButton = () => {
     if (this.state.starts.length) {
-      return (<button onClick={this.reset}>Reset</button>)
+      return (<button onClick={this.reset} className="ResetButton">Reset</button>)
+    } else {
+      return '';
     }
   }
 
@@ -95,32 +103,35 @@ class Timer extends React.Component {
     return elapsed;
   }
 
-  padNumber = (number) => {
-    return (number < 10 ? '0' : '') + number
-  }
+  padNumber = (number, digits) =>
+    (number < 10 ? '0' : '') + number;
 
   formatTime = (time) => {
-    let remTime = time/1000;
-    const hr = Math.floor(remTime / 3600);
-    remTime = remTime - hr * 3600;
-    const min = Math.floor(remTime / 60);
-    remTime = remTime - min * 60;
-    const sec = remTime;
-    return this.padNumber(hr) + ":" + this.padNumber(min) + ":" + this.padNumber(sec.toFixed(3));
+    let remainingTime = time/1000;
+    const hr = Math.floor(remainingTime / 3600);
+    remainingTime = remainingTime - hr * 3600;
+
+    const min = Math.floor(remainingTime / 60);
+    remainingTime = remainingTime - min * 60;
+
+    const sec = remainingTime;
+    return this.padNumber(hr, 2) + ":" + this.padNumber(min, 2) + ":" + this.padNumber(sec.toFixed(3), 2);
   }
 
-  getLaps = () => {
-    return this.state.laps.map(
-      (lapTime, i) => <div className="lap" laptime={lapTime} key={'lap' + (i+1).toString()}>Lap {i+1}: {lapTime} <FaTrashAlt onClick={this.deleteLap} id={'lap' + (i+1).toString()} laptime={lapTime} /></div>
+  Laps = () =>
+    this.state.laps.map(
+      (lapTime, i) =>
+      <div className="lap" laptime={lapTime} key={'lap' + (i+1).toString()}>
+        Lap {i+1}: {lapTime} <FaTrashAlt onClick={this.deleteLap} id={'lap' + (i+1).toString()} laptime={lapTime} />
+      </div>
     );
-  }
 
   render = () => {
     return (
       <div>
         {this.formatTime(this.getCurrentTime())}<br /><br />
-        {this.getStartButton()} {this.getStopButton()} {this.getLapButton()} {this.getResetButton()}<br /><br />
-        {this.getLaps()}
+        <this.StartButton /> <this.StopButton /> <this.LapButton /> <this.ResetButton /><br /><br />
+        <this.Laps />
       </div>
     );
   }
