@@ -9,14 +9,13 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
@@ -48,11 +47,17 @@ button {
   background-color: #0dace0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.LapLog {
+  height: 25vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 40vw;
+}
+
+.Clock {
+  font-size: 14px;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #000000;
 }

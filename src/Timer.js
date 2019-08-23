@@ -1,5 +1,6 @@
 import React from 'react';
-import {FaTrashAlt} from 'react-icons/fa';
+import {FaTrashAlt, FaClock} from 'react-icons/fa';
+import {padNumber} from './helpers.js';
 
 class Timer extends React.Component {
   constructor(props) {
@@ -103,9 +104,6 @@ class Timer extends React.Component {
     return elapsed;
   }
 
-  padNumber = (number, digits) =>
-    (number < 10 ? '0' : '') + number;
-
   formatTime = (time) => {
     let remainingTime = time/1000;
     const hr = Math.floor(remainingTime / 3600);
@@ -115,7 +113,7 @@ class Timer extends React.Component {
     remainingTime = remainingTime - min * 60;
 
     const sec = remainingTime;
-    return this.padNumber(hr, 2) + ":" + this.padNumber(min, 2) + ":" + this.padNumber(sec.toFixed(3), 2);
+    return padNumber(hr, 2) + ":" + padNumber(min, 2) + ":" + padNumber(sec.toFixed(3), 2);
   }
 
   Laps = () =>
@@ -129,11 +127,13 @@ class Timer extends React.Component {
   render = () => {
     return (
       <div>
-        {this.formatTime(this.getCurrentTime())}<br /><br />
+        {this.formatTime(this.getCurrentTime())} <FaClock /><br /><br />
         <this.StartButton /> <this.StopButton /> <this.LapButton /> <this.ResetButton /><br /><br />
-        <this.Laps />
+        <div className="LapLog">
+          <this.Laps />
+        </div>
       </div>
-    );
+    )
   }
 }
 
