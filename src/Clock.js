@@ -14,7 +14,7 @@ class Clock extends React.Component {
 
   setFormat = (format) => {
     this.setState((prevState) => ({
-      timeFormat: format
+      dateTimeFormat: format
     }))
   }
 
@@ -34,6 +34,7 @@ class Clock extends React.Component {
       'DD': padNumber(currDateTime.getDate()),
       'D': currDateTime.getDate(),
       'YYYY': currDateTime.getFullYear(),
+      'YY': currDateTime.getFullYear() - 2000,
       'hh': padNumber(currDateTime.getHours()),
       'h': currDateTime.getHours(),
       'mm': padNumber(currDateTime.getMinutes()),
