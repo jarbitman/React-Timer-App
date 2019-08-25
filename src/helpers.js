@@ -30,3 +30,8 @@ export const toHMS = (sec) => {
     seconds: remainingSeconds
   }
 }
+
+export const removeNonNumeric = (value) => {
+  const returnValue = value.split('').filter((c) => c >= '0' && c <= '9').join('');
+  return (returnValue === '') ? 0 : returnValue;
+}

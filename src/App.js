@@ -2,7 +2,6 @@ import React from 'react';
 import Timer from './Timer.js';
 import Clock from './Clock.js';
 import Countdown from './Countdown.js';
-//import Chooser from './Chooser.js';
 import './App.css';
 
 let timer;

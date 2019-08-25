@@ -1,6 +1,6 @@
 import React from 'react';
 import {/*FaTrashAlt,*/ FaClock} from 'react-icons/fa';
-import {formatTime, padNumber, toHMS} from './helpers.js';
+import * as utils from './helpers.js';
 
 class Countdown extends React.Component {
   constructor(props) {
@@ -59,7 +59,7 @@ class Countdown extends React.Component {
 
   resetCountdown = () => {
     this.stopCountdown();
-    let newTime = toHMS(this.state.originalSeconds);
+    let newTime = utils.toHMS(this.state.originalSeconds);
     this.setState({
       hasRun: false,
       countdownRemaining: this.state.originalSeconds,
@@ -106,11 +106,11 @@ class Countdown extends React.Component {
 
     // keep input value the same
     let newState = {};
-    newState[e.target.id] = e.target.value;
+    newState[e.target.id] = utils.removeNonNumeric(e.target.value);
     this.setState(newState, () => {
       // calculate HH:MM:SS for time set
       const newTime = 3600 * parseInt(this.state.hr) + 60 * parseInt(this.state.min) + parseInt(this.state.sec);
-      const rem = toHMS(newTime);
+      const rem = utils.toHMS(newTime);
       this.setState({
         hr: rem.hours,
         min: rem.minutes,
@@ -122,11 +122,11 @@ class Countdown extends React.Component {
 
   ShowCountdown = () => {
     if (this.state.hasRun) {
-      return formatTime(this.getCurrentTime());
+      return utils.formatTime(this.getCurrentTime());
     } else {
       return (
         <span className="CountdownSetter">
-          <input type="text" name="hr" id="hr" value={padNumber(this.state.hr, 2)} onChange={this.updateCountdownTime} /> : <input type="text" name="min" id="min" value={padNumber(this.state.min, 2)} onChange={this.updateCountdownTime} /> : <input type="text" name="sec" id="sec" value={padNumber(this.state.sec, 2)} onChange={this.updateCountdownTime} />
+          <input type="text" name="hr" id="hr" value={utils.padNumber(this.state.hr, 2)} onChange={this.updateCountdownTime} /> : <input type="text" name="min" id="min" value={utils.padNumber(this.state.min, 2)} onChange={this.updateCountdownTime} /> : <input type="text" name="sec" id="sec" value={utils.padNumber(this.state.sec, 2)} onChange={this.updateCountdownTime} />
         </span>
       )
     }

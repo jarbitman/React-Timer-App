@@ -26,7 +26,7 @@ button {
 }
 
 .Timer {
-  font-size: 48pt;
+  font-size: 36pt;
 }
 
 .StartButton {
@@ -58,6 +58,7 @@ button {
   overflow-y: scroll;
   overflow-x: hidden;
   width: 40vw;
+  min-width: 20em;
 }
 
 .Clock {
@@ -69,7 +70,7 @@ button {
 }
 
 .CountdownSetter input {
-  font-size: 48pt;
+  font-size: 36pt;
   width: 2em;
   text-align: center;
 }
