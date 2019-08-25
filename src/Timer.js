@@ -116,18 +116,20 @@ class Timer extends React.Component {
     return padNumber(hr, 2) + ":" + padNumber(min, 2) + ":" + padNumber(sec.toFixed(3), 2);
   }
 
-  Laps = () =>
-    this.state.laps.map(
+  Laps = () => {
+    let padLapsTo = ("" + this.state.laps.length).length;
+    return this.state.laps.map(
       (lapTime, i) =>
       <div className="lap" laptime={lapTime} key={'lap' + (i+1).toString()}>
-        Lap {i+1}: {lapTime} <FaTrashAlt onClick={this.deleteLap} id={'lap' + (i+1).toString()} laptime={lapTime} />
+        Lap {padNumber(i+1, padLapsTo)}: {lapTime} <FaTrashAlt onClick={this.deleteLap} id={'lap' + (i+1).toString()} laptime={lapTime} />
       </div>
     );
+  }
 
   render = () => {
     return (
       <div>
-        {this.formatTime(this.getCurrentTime())} <FaClock /><br /><br />
+        <div className="Timer">{this.formatTime(this.getCurrentTime())} <FaClock /></div><br /><br />
         <this.StartButton /> <this.StopButton /> <this.LapButton /> <this.ResetButton /><br /><br />
         <div className="LapLog">
           <this.Laps />
