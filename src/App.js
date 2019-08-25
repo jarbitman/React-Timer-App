@@ -16,7 +16,7 @@ function App() {
       </div>
       <div className="App-main">
         <Timer ref={(ref) => {timer = ref;}} />
-        <Countdown ref={(ref) => {countdown = ref;}} parent={this} />
+        <Countdown ref={(ref) => {countdown = ref;}} />
       </div>
     </div>
   );
