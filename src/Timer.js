@@ -6,7 +6,14 @@ import { animateScroll } from "react-scroll";
 class Timer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {starts: [], stops: [], isRunning: false, laps: [], interval: null};
+    this.state = {
+      starts: [],
+      stops: [],
+      isRunning: false,
+      laps: [],
+      interval: null,
+      isVisible: false,
+    };
   }
 
   incrementTick = () => {
@@ -121,16 +128,32 @@ class Timer extends React.Component {
     );
   }
 
+  makeVisible = () => {
+    this.setState({
+      isVisible: true,
+    });
+  }
+
+  makeInvisible = () => {
+    this.setState({
+      isVisible: false,
+    });
+  }
+
   render = () => {
-    return (
-      <div>
-        <div className="Timer">{formatTime(this.getCurrentTime())} <FaClock /></div><br /><br />
-        <this.StartButton /> <this.StopButton /> <this.LapButton /> <this.ResetButton /><br /><br />
-        <div className="LapLog" id="LapLog">
-          <this.Laps />
+    if (this.state.isVisible) {
+      return (
+        <div>
+          <div className="Timer">{formatTime(this.getCurrentTime())} <FaClock /></div><br /><br />
+          <this.StartButton /> <this.StopButton /> <this.LapButton /> <this.ResetButton /><br /><br />
+          <div className="LapLog" id="LapLog">
+            <this.Laps />
+          </div>
         </div>
-      </div>
-    )
+      );
+    } else {
+      return '';
+    }
   }
 }
 

@@ -15,5 +15,18 @@ export const formatTime = (time) => {
   remainingTime = remainingTime - min * 60;
 
   const sec = remainingTime;
-  return padNumber(hr, 2) + ":" + padNumber(min, 2) + ":" + padNumber(sec.toFixed(3), 2);
+  return padNumber(hr, 2) + ":" + padNumber(min, 2) + ":" + ((Number.isInteger(sec)) ? padNumber(sec, 2) : padNumber(sec.toFixed(3), 2));
+}
+
+export const toHMS = (sec) => {
+  let remainingSeconds = sec;
+  const hours = Math.floor(remainingSeconds / 3600);
+  remainingSeconds = remainingSeconds % 3600;
+  const minutes = Math.floor(remainingSeconds / 60);
+  remainingSeconds = remainingSeconds % 60;
+  return {
+    hours: hours,
+    minutes: minutes,
+    seconds: remainingSeconds
+  }
 }
