@@ -1,6 +1,7 @@
 import React from 'react';
 import {FaTrashAlt, FaClock} from 'react-icons/fa';
-import {padNumber} from './helpers.js';
+import {padNumber, formatTime} from './helpers.js';
+import { animateScroll } from "react-scroll";
 
 class Timer extends React.Component {
   constructor(props) {
@@ -33,8 +34,14 @@ class Timer extends React.Component {
 
   lap = () => {
     this.setState((prevState, {lap}) => ({
-      laps: [...this.state.laps, this.formatTime(this.getCurrentTime())]
-    }))
+      laps: [...this.state.laps, formatTime(this.getCurrentTime())]
+    }), this.scrollToBottom);
+  }
+
+  scrollToBottom = () => {
+    animateScroll.scrollToBottom({
+      containerId: "LapLog"
+    });
   }
 
   reset = () => {
@@ -104,18 +111,6 @@ class Timer extends React.Component {
     return elapsed;
   }
 
-  formatTime = (time) => {
-    let remainingTime = time/1000;
-    const hr = Math.floor(remainingTime / 3600);
-    remainingTime = remainingTime - hr * 3600;
-
-    const min = Math.floor(remainingTime / 60);
-    remainingTime = remainingTime - min * 60;
-
-    const sec = remainingTime;
-    return padNumber(hr, 2) + ":" + padNumber(min, 2) + ":" + padNumber(sec.toFixed(3), 2);
-  }
-
   Laps = () => {
     let padLapsTo = ("" + this.state.laps.length).length;
     return this.state.laps.map(
@@ -129,9 +124,9 @@ class Timer extends React.Component {
   render = () => {
     return (
       <div>
-        <div className="Timer">{this.formatTime(this.getCurrentTime())} <FaClock /></div><br /><br />
+        <div className="Timer">{formatTime(this.getCurrentTime())} <FaClock /></div><br /><br />
         <this.StartButton /> <this.StopButton /> <this.LapButton /> <this.ResetButton /><br /><br />
-        <div className="LapLog">
+        <div className="LapLog" id="LapLog">
           <this.Laps />
         </div>
       </div>
