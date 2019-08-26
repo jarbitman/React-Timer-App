@@ -144,6 +144,10 @@ class Countdown extends React.Component {
     });
   }
 
+  getClass = () => {
+    return (this.state.isVisible) ? 'active-choice' : '';
+  }
+
   render = () => {
     const player = <audio ref={(ref) => {this.player = ref; }} />;
     if (this.state.isVisible) {

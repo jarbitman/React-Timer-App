@@ -99,3 +99,7 @@ button {
   width: 100%;
   text-align: center;
 }
+
+.active-choice {
+  border-bottom: 3px solid green;
+}

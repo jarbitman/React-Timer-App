@@ -140,6 +140,14 @@ class Timer extends React.Component {
     });
   }
 
+  getClass = () => {
+    return (this.state.isVisible) ? 'active-choice' : '';
+  }
+
+  isVisible = () => {
+    return this.state.isVisible;
+  }
+
   render = () => {
     if (this.state.isVisible) {
       return (

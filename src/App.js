@@ -12,7 +12,8 @@ function App() {
     <div className="App">
       <Clock format="MM-DD-YYYY i:mm:ss a" />
       <div className="Chooser">
-        <button onClick={SetTimer} id="timerChooserButton">Timer</button> | <button onClick={SetCountdown} id="countdownChooserButton">Countdown</button>
+        <button onClick={SetTimer} id="timerChooserButton">Timer</button> |
+        <button onClick={SetCountdown} id="countdownChooserButton">Countdown</button>
       </div>
       <div className="App-main">
         <Timer ref={(ref) => {timer = ref;}} />
@@ -23,13 +24,17 @@ function App() {
 }
 
 function SetTimer () {
-  timer.makeVisible();
   countdown.makeInvisible();
+  timer.makeVisible();
+  document.getElementById("timerChooserButton").classList.add("active-choice");
+  document.getElementById("countdownChooserButton").classList.remove("active-choice");
 }
 
 function SetCountdown () {
-  countdown.makeVisible();
   timer.makeInvisible();
+  countdown.makeVisible();
+  document.getElementById("timerChooserButton").classList.remove("active-choice");
+  document.getElementById("countdownChooserButton").classList.add("active-choice");
 }
 
 export default App;
