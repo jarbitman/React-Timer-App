@@ -4,16 +4,15 @@ import Clock from './Clock.js';
 import Countdown from './Countdown.js';
 import './App.css';
 
-let timer;
-let countdown;
+let timer, countdown, TimerChooserButton, CountdownChooserButton;
 
 function App() {
   return (
     <div className="App">
       <Clock format="MM-DD-YYYY i:mm:ss a" />
       <div className="Chooser">
-        <button onClick={SetTimer} id="timerChooserButton">Timer</button> |
-        <button onClick={SetCountdown} id="countdownChooserButton">Countdown</button>
+        <button onClick={SetTimer} id="timerChooserButton" ref={(ref) => TimerChooserButton = ref}>Timer</button> |
+        <button onClick={SetCountdown} id="countdownChooserButton" ref={(ref) => CountdownChooserButton = ref}>Countdown</button>
       </div>
       <div className="App-main">
         <Timer ref={(ref) => {timer = ref;}} />
@@ -26,15 +25,15 @@ function App() {
 function SetTimer () {
   countdown.makeInvisible();
   timer.makeVisible();
-  document.getElementById("timerChooserButton").classList.add("active-choice");
-  document.getElementById("countdownChooserButton").classList.remove("active-choice");
+  TimerChooserButton.classList.add("active-choice");
+  CountdownChooserButton.classList.remove("active-choice");
 }
 
 function SetCountdown () {
   timer.makeInvisible();
   countdown.makeVisible();
-  document.getElementById("timerChooserButton").classList.remove("active-choice");
-  document.getElementById("countdownChooserButton").classList.add("active-choice");
+  TimerChooserButton.classList.remove("active-choice");
+  CountdownChooserButton.classList.add("active-choice");
 }
 
 export default App;
