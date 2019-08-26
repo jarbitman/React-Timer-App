@@ -80,12 +80,12 @@ class Countdown extends React.Component {
   ToggleRunning = () => {
     if (!this.state.isRunning) {
       if (!this.state.hasRun) {
-        return (<button onClick={this.startCountdown} className="StartButton" disabled={this.state.countdownRemaining === 0}>Start</button>)
+        return (<button onClick={this.startCountdown} className="StartButton" disabled={this.state.countdownRemaining === 0}>Start</button>);
       } else {
-        return (<button onClick={this.resumeCountdown} className="ResumeButton">Resume</button>)
+        return (<button onClick={this.resumeCountdown} className="ResumeButton">Resume</button>);
       }
     } else {
-      return (<button onClick={this.pauseCountdown} className="PauseButton">Pause</button>)
+      return (<button onClick={this.pauseCountdown} className="PauseButton">Pause</button>);
     }
   }
 
@@ -132,20 +132,10 @@ class Countdown extends React.Component {
     }
   }
 
-  makeVisible = () => {
+  setVisibility = (newVisibility) => {
     this.setState({
-      isVisible: true,
+      isVisible: newVisibility,
     });
-  }
-
-  makeInvisible = () => {
-    this.setState({
-      isVisible: false,
-    });
-  }
-
-  getClass = () => {
-    return (this.state.isVisible) ? 'active-choice' : '';
   }
 
   render = () => {
@@ -162,7 +152,8 @@ class Countdown extends React.Component {
       return (
         <div>
           {player}
-        </div>);
+        </div>
+      );
     }
   }
 }

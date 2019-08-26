@@ -66,7 +66,7 @@ class Timer extends React.Component {
 
   deleteLap = (e) => {
     this.newLapArray = this.filterLapArray(this.state.laps, e.target.closest(".lap").attributes.laptime.value);
-    this.setState((prevState) => ({
+    this.setState(() => ({
       laps: this.newLapArray
     }));
   }
@@ -122,26 +122,16 @@ class Timer extends React.Component {
     let padLapsTo = ("" + this.state.laps.length).length;
     return this.state.laps.map(
       (lapTime, i) =>
-      <div className="lap" laptime={lapTime} key={'lap' + (i+1).toString()}>
+      <li className="lap" laptime={lapTime} key={'lap' + (i+1).toString()}>
         Lap {padNumber(i+1, padLapsTo)}: {lapTime} <FaTrashAlt onClick={this.deleteLap} id={'lap' + (i+1).toString()} laptime={lapTime} />
-      </div>
+      </li>
     );
   }
 
-  makeVisible = () => {
+  setVisibility = (newVisibility) => {
     this.setState({
-      isVisible: true,
+      isVisible: newVisibility,
     });
-  }
-
-  makeInvisible = () => {
-    this.setState({
-      isVisible: false,
-    });
-  }
-
-  getClass = () => {
-    return (this.state.isVisible) ? 'active-choice' : '';
   }
 
   isVisible = () => {

@@ -61,6 +61,11 @@ button {
   min-width: 20em;
 }
 
+li.lap {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .Clock {
   font-size: 14px;
   position: absolute;
@@ -102,4 +107,30 @@ button {
 
 .active-choice {
   border-bottom: 3px solid green;
+}
+
+.react-calendar {
+  color: #000000;
+  font-size: 12px;
+}
+
+.react-calendar button {
+  color: #000000;
+}
+
+.react-datetime-picker__clear-button {
+  display: none;
+}
+
+.AlarmLog {
+  height: 25vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 40vw;
+  min-width: 20em;
+}
+
+li.alarm {
+  list-style-type: none;
+  padding-left: 0;
 }

@@ -2,38 +2,40 @@ import React from 'react';
 import Timer from './Timer.js';
 import Clock from './Clock.js';
 import Countdown from './Countdown.js';
+import Alarm from './Alarm.js';
 import './App.css';
 
-let timer, countdown, TimerChooserButton, CountdownChooserButton;
+let apps = {}, appButtons = {};
 
 function App() {
   return (
     <div className="App">
       <Clock format="MM-DD-YYYY i:mm:ss a" />
       <div className="Chooser">
-        <button onClick={SetTimer} id="timerChooserButton" ref={(ref) => TimerChooserButton = ref}>Timer</button> |
-        <button onClick={SetCountdown} id="countdownChooserButton" ref={(ref) => CountdownChooserButton = ref}>Countdown</button>
+        <button onClick={HandleClick} id="timer" ref={(ref) => appButtons['timer'] = ref}>Timer</button> |
+        <button onClick={HandleClick} id="countdown" ref={(ref) => appButtons['countdown'] = ref}>Countdown</button> |
+        <button onClick={HandleClick} id="alarm" ref={(ref) => appButtons['alarm'] = ref}>Alarm</button>
       </div>
       <div className="App-main">
-        <Timer ref={(ref) => {timer = ref;}} />
-        <Countdown ref={(ref) => {countdown = ref;}} />
+        <Timer ref={(ref) => apps['timer'] = ref} />
+        <Countdown ref={(ref) => apps['countdown'] = ref} />
+        <Alarm ref={(ref) => apps['alarm'] = ref} />
       </div>
     </div>
   );
 }
 
-function SetTimer () {
-  countdown.makeInvisible();
-  timer.makeVisible();
-  TimerChooserButton.classList.add("active-choice");
-  CountdownChooserButton.classList.remove("active-choice");
-}
+function HandleClick(e) {
+  e.preventDefault();
 
-function SetCountdown () {
-  timer.makeInvisible();
-  countdown.makeVisible();
-  TimerChooserButton.classList.remove("active-choice");
-  CountdownChooserButton.classList.add("active-choice");
+  // eslint-disable-next-line
+  for(let app in apps) {
+    apps[app].setVisibility(false);
+    appButtons[app].classList.remove('active-choice');
+  }
+
+  apps[e.target.attributes.id.value].setVisibility(true);
+  appButtons[e.target.attributes.id.value].classList.add('active-choice');
 }
 
 export default App;
