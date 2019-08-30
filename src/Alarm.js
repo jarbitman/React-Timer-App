@@ -8,11 +8,11 @@ class Alarm extends React.Component {
     super(props);
     this.state = {
       alarms: [],
-      intervals: [],
+      timeouts: [],
       isVisible: false,
       currentAlarm: new Date(),
       dingSound: 'ding.mp3',
-      alarmFormat: 'MM-DD-YYYY hh:mm:ss',
+      alarmFormat: 'MM-DD-YYYY i:mm:ss a',
       player: null
     };
   }
@@ -41,41 +41,41 @@ class Alarm extends React.Component {
       this.player.src = this.state.dingSound;
       this.setState((prevState) => ({
         alarms: [...prevState.alarms, prevState.currentAlarm],
-        intervals: [...prevState.intervals, setInterval(() => {this.alertUser()}, prevState.currentAlarm - new Date())],
+        timeouts: [...prevState.timeouts, setTimeout(() => {this.alertUser()}, prevState.currentAlarm - new Date())],
       }));
     } else {
       console.log("not going to add a duplicate alarm");
     }
   }
 
-  filterAlarmArray = (alarms, intervals, itemToRemove) => {
+  filterAlarmArray = (alarms, timeouts, itemToRemove) => {
     let newAlarms = [];
-    let newIntervals = [];
+    let newTimeouts = [];
 
     for(let i = 0; i < alarms.length; i++) {
       if (alarms[i].toString() !== itemToRemove.toString()) {
         newAlarms.push(alarms[i]);
-        newIntervals.push(intervals[i]);
+        newTimeouts.push(timeouts[i]);
       } else {
-        clearInterval(intervals[i]);
+        clearTimeout(timeouts[i]);
       }
     }
-    return [newAlarms, newIntervals];
+    return [newAlarms, newTimeouts];
   }
 
   deleteAlarm = (e) => {
-    const [alarms, intervals] = this.filterAlarmArray(this.state.alarms, this.state.intervals, e.target.closest(".alarm").attributes.alarmtime.value);
+    const [alarms, timeouts] = this.filterAlarmArray(this.state.alarms, this.state.timeouts, e.target.closest(".alarm").attributes.alarmtime.value);
     this.setState(() => ({
       alarms: alarms,
-      intervals: intervals
+      timeouts: timeouts
     }));
   }
 
   alertUser = () => {
-    const [alarms, intervals] = this.filterAlarmArray(this.state.alarms, this.state.intervals, new Date().toString());
+    const [alarms, timeouts] = this.filterAlarmArray(this.state.alarms, this.state.timeouts, new Date().toString());
     this.setState(() => ({
       alarms: alarms,
-      intervals: intervals
+      timeouts: timeouts
     }));
     this.player.play();
     console.log('playing ding');

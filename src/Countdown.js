@@ -8,7 +8,7 @@ class Countdown extends React.Component {
     this.state = {
       isRunning: false,
       countdownRemaining: 0,
-      interval: null,
+      timeout: null,
       hasRun: false,
       hr: 0,
       min: 0,
@@ -42,7 +42,7 @@ class Countdown extends React.Component {
         })
       }
       this.setState((prevState) => ({
-        interval: setInterval(this.incrementTick, 1000),
+        timeout: setTimeout(this.incrementTick, 1000),
         isRunning: true,
         hasRun: true
       }));
@@ -50,9 +50,9 @@ class Countdown extends React.Component {
   }
 
   stopCountdown = () => {
-    clearInterval(this.state.interval);
+    clearTimeout(this.state.timeout);
     this.setState((prevState) => ({
-      interval: null,
+      timeout: null,
       isRunning: false,
     }));
   }
