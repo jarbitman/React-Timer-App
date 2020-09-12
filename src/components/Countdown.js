@@ -1,6 +1,6 @@
 import React from 'react';
 import {/*FaTrashAlt,*/ FaClock} from 'react-icons/fa';
-import * as utils from './helpers.js';
+import * as utils from '../helpers.js';
 
 class Countdown extends React.Component {
   constructor(props) {
@@ -22,13 +22,12 @@ class Countdown extends React.Component {
   }
 
   incrementTick = () => {
-    if (this.state.countdownRemaining !== 0) {
+    if (this.state.countdownRemaining > 0) {
       this.setState((prevState, {Countdown}) => ({
         countdownRemaining: prevState.countdownRemaining - 1,
         timeout: setTimeout(() => {this.incrementTick()}, 1000)
       }));
     } else {
-      this.makeVisible();
       this.player.play();
       this.resetCountdown();
     }

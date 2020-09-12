@@ -1,6 +1,6 @@
 import React from 'react';
 import {FaTrashAlt, FaClock} from 'react-icons/fa';
-import {padNumber, formatTime} from './helpers.js';
+import {padNumber, formatTime} from '../helpers.js';
 import { animateScroll } from "react-scroll";
 
 class Timer extends React.Component {

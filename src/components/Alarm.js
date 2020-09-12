@@ -1,7 +1,7 @@
 import React from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import {FaTrashAlt, FaClock, FaPlus} from 'react-icons/fa';
-import {formatDateTime, padNumber} from './helpers.js';
+import {formatDateTime, padNumber} from '../helpers.js';
 
 class Alarm extends React.Component {
   constructor(props) {

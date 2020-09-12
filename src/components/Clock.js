@@ -1,5 +1,5 @@
 import React from 'react';
-import {formatDateTime} from './helpers.js'
+import {formatDateTime} from '../helpers.js'
 
 class Clock extends React.Component {
   state = {
