@@ -1,8 +1,8 @@
 import React from 'react';
-import Timer from './Timer.js';
-import Clock from './Clock.js';
-import Countdown from './Countdown.js';
-import Alarm from './Alarm.js';
+import Timer from './components/Timer.js';
+import Clock from './components/Clock.js';
+import Countdown from './components/Countdown.js';
+import Alarm from './components/Alarm.js';
 import './App.css';
 
 let apps = {}, appButtons = {};
