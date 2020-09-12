@@ -25,6 +25,7 @@ class Countdown extends React.Component {
     if (this.state.countdownRemaining !== 0) {
       this.setState((prevState, {Countdown}) => ({
         countdownRemaining: prevState.countdownRemaining - 1,
+        timeout: setTimeout(() => {this.incrementTick()}, 1000)
       }));
     } else {
       this.makeVisible();
@@ -42,7 +43,7 @@ class Countdown extends React.Component {
         })
       }
       this.setState((prevState) => ({
-        timeout: setTimeout(this.incrementTick, 1000),
+        timeout: setTimeout(() => {this.incrementTick()}, 1000),
         isRunning: true,
         hasRun: true
       }));
