@@ -1,46 +1,27 @@
-import React from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { formatDateTime } from '../helpers.js';
 
-class Clock extends React.Component {
-  state = {
-    currentTime: '',
-    dateTimeFormat: 'MM-DD-YYYY hh:mm:ss',
-    interval: null,
-  };
+function Clock(props) {
 
-  constructor(props) {
-    super(props);
+  const [dateTime, setDateTime] = useState(new Date());
 
-    if (props.format) {
-      this.state.dateTimeFormat = this.props.format;
-    }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDateTime(new Date())
+    }, 1000);
 
-    this.state.interval = setInterval(this.UpdateTime, 1000);
-  }
+    return () => clearInterval(interval);
+  }, []);
 
-  setFormat = (format) => {
-    this.setState((prevState) => ({
-      dateTimeFormat: format,
-    }));
-  };
+  const currentDateTime = useMemo(() => {
+    return formatDateTime(props.format ? props.format : 'MM-DD-YYYY hh:mm:ss', dateTime);
+  }, [dateTime, props.format]);
 
-  CurrentTime = () =>
-      this.state.currentTime;
-
-  UpdateTime = () => {
-    this.setState((prevState) => ({
-      currentTime: formatDateTime(this.state.dateTimeFormat, new Date()),
-    }));
-  };
-
-  render = () => {
-    return (
-        <div className="Clock">
-          <this.CurrentTime/>
-        </div>
-    );
-  };
-
+  return (
+      <div className="Clock">
+        { currentDateTime }
+      </div>
+  );
 }
 
 export default Clock;

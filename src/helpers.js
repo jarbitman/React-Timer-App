@@ -7,7 +7,7 @@ export const padNumber = (number, digits = 2) => {
 }
 
 export const formatTime = (time) => {
-  let remainingTime = time/1000;
+  let remainingTime = time / 1000;
   const hr = Math.floor(remainingTime / 3600);
   remainingTime = remainingTime - hr * 3600;
 
@@ -15,7 +15,9 @@ export const formatTime = (time) => {
   remainingTime = remainingTime - min * 60;
 
   const sec = remainingTime;
-  return padNumber(hr, 2) + ":" + padNumber(min, 2) + ":" + ((Number.isInteger(sec)) ? padNumber(sec, 2) : padNumber(sec.toFixed(3), 2));
+  return padNumber(hr, 2) + ":" +
+      padNumber(min, 2) + ":" +
+      ((Number.isInteger(sec)) ? padNumber(sec, 2) : padNumber(sec.toFixed(3), 2));
 }
 
 export const toHMS = (sec) => {
@@ -56,13 +58,11 @@ export const formatDateTime = (dateTimeFormat, currDateTime) => {
     'A': (currDateTime.getHours() < 12) ? 'AM' : 'PM',
   }
 
-  let formattedDateTime = dateTimeFormat.replace(/([a-zA-Z]+)/g, (field) => {
+  return dateTimeFormat.replace(/([a-zA-Z]+)/g, (field) => {
     if (typeof(dateFields[field]) !== 'undefined') {
       return dateFields[field];
     } else {
       return field;
     }
   });
-
-  return formattedDateTime;
 }
