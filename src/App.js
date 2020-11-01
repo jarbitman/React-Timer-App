@@ -28,7 +28,6 @@ function App() {
 function HandleClick(e) {
   e.preventDefault();
 
-  // eslint-disable-next-line
   for(let app in apps) {
     apps[app].setVisibility(false);
     appButtons[app].classList.remove('active-choice');

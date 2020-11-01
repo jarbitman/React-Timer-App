@@ -1,5 +1,5 @@
 import React from 'react';
-import {formatDateTime} from '../helpers.js'
+import { formatDateTime } from '../helpers.js';
 
 class Clock extends React.Component {
   state = {
@@ -20,26 +20,26 @@ class Clock extends React.Component {
 
   setFormat = (format) => {
     this.setState((prevState) => ({
-      dateTimeFormat: format
+      dateTimeFormat: format,
     }));
-  }
+  };
 
   CurrentTime = () =>
-    this.state.currentTime;
+      this.state.currentTime;
 
   UpdateTime = () => {
     this.setState((prevState) => ({
-      currentTime: formatDateTime(this.state.dateTimeFormat, new Date())
+      currentTime: formatDateTime(this.state.dateTimeFormat, new Date()),
     }));
-  }
+  };
 
   render = () => {
     return (
-      <div className="Clock">
-        <this.CurrentTime />
-      </div>
-    )
-  }
+        <div className="Clock">
+          <this.CurrentTime/>
+        </div>
+    );
+  };
 
 }
 

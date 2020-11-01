@@ -1,5 +1,5 @@
 import React from 'react';
-import {/*FaTrashAlt,*/ FaClock} from 'react-icons/fa';
+import { FaClock } from 'react-icons/fa';
 import * as utils from '../helpers.js';
 
 class Countdown extends React.Component {
@@ -15,7 +15,7 @@ class Countdown extends React.Component {
       sec: 0,
       originalSeconds: 0,
       dingSound: 'ding.mp3',
-      isVisible: false
+      isVisible: false,
     };
 
     this.updateCountdownTime = this.updateCountdownTime.bind(this);
@@ -23,15 +23,18 @@ class Countdown extends React.Component {
 
   incrementTick = () => {
     if (this.state.countdownRemaining > 0) {
-      this.setState((prevState, {Countdown}) => ({
+      this.setState((prevState, { Countdown }) => ({
         countdownRemaining: prevState.countdownRemaining - 1,
-        timeout: setTimeout(() => {this.incrementTick()}, 1000)
+        timeout: setTimeout(() => {
+          this.incrementTick();
+        }, 1000),
       }));
     } else {
-      this.player.play();
-      this.resetCountdown();
+      this.player.play().then(() => {
+        this.resetCountdown();
+      });
     }
-  }
+  };
 
   startCountdown = () => {
     if (this.state.countdownRemaining !== 0) {
@@ -39,15 +42,17 @@ class Countdown extends React.Component {
       if (!this.state.hasRun) {
         this.setState({
           originalSeconds: this.state.countdownRemaining,
-        })
+        });
       }
       this.setState((prevState) => ({
-        timeout: setTimeout(() => {this.incrementTick()}, 1000),
+        timeout: setTimeout(() => {
+          this.incrementTick();
+        }, 1000),
         isRunning: true,
-        hasRun: true
+        hasRun: true,
       }));
     }
-  }
+  };
 
   stopCountdown = () => {
     clearTimeout(this.state.timeout);
@@ -55,7 +60,7 @@ class Countdown extends React.Component {
       timeout: null,
       isRunning: false,
     }));
-  }
+  };
 
   resetCountdown = () => {
     this.stopCountdown();
@@ -67,39 +72,39 @@ class Countdown extends React.Component {
       min: newTime.minutes,
       sec: newTime.seconds,
     });
-  }
+  };
 
   resumeCountdown = () => {
     this.startCountdown();
-  }
+  };
 
   pauseCountdown = () => {
     this.stopCountdown();
-  }
+  };
 
   ToggleRunning = () => {
     if (!this.state.isRunning) {
       if (!this.state.hasRun) {
-        return (<button onClick={this.startCountdown} className="StartButton" disabled={this.state.countdownRemaining === 0}>Start</button>);
+        return (<button onClick={ this.startCountdown } className="StartButton" disabled={ this.state.countdownRemaining === 0 }>Start</button>);
       } else {
-        return (<button onClick={this.resumeCountdown} className="ResumeButton">Resume</button>);
+        return (<button onClick={ this.resumeCountdown } className="ResumeButton">Resume</button>);
       }
     } else {
-      return (<button onClick={this.pauseCountdown} className="PauseButton">Pause</button>);
+      return (<button onClick={ this.pauseCountdown } className="PauseButton">Pause</button>);
     }
-  }
+  };
 
   ResetButton = () => {
     if (!this.state.isRunning) {
-      return (<button onClick={this.resetCountdown} className="ResetButton">Reset</button>);
+      return (<button onClick={ this.resetCountdown } className="ResetButton">Reset</button>);
     } else {
       return '';
     }
-  }
+  };
 
   getCurrentTime = () => {
     return this.state.countdownRemaining * 1000;
-  }
+  };
 
   updateCountdownTime = (e) => {
     e.preventDefault();
@@ -116,46 +121,58 @@ class Countdown extends React.Component {
         min: rem.minutes,
         sec: rem.seconds,
         countdownRemaining: newTime,
-      })
+      });
     });
-  }
+  };
 
   ShowCountdown = () => {
     if (this.state.hasRun) {
       return utils.formatTime(this.getCurrentTime());
     } else {
       return (
-        <span className="CountdownSetter">
-          <input type="text" name="hr" id="hr" value={utils.padNumber(this.state.hr, 2)} onChange={this.updateCountdownTime} /> : <input type="text" name="min" id="min" value={utils.padNumber(this.state.min, 2)} onChange={this.updateCountdownTime} /> : <input type="text" name="sec" id="sec" value={utils.padNumber(this.state.sec, 2)} onChange={this.updateCountdownTime} />
+          <span className="CountdownSetter">
+          <input type="text" name="hr" id="hr" value={ utils.padNumber(this.state.hr, 2) }
+                 onChange={ this.updateCountdownTime }/> : <input type="text" name="min" id="min"
+                                                                  value={ utils.padNumber(this.state.min, 2) }
+                                                                  onChange={ this.updateCountdownTime }/> : <input
+              type="text" name="sec" id="sec" value={ utils.padNumber(this.state.sec, 2) }
+              onChange={ this.updateCountdownTime }/>
         </span>
-      )
+      );
     }
-  }
+  };
 
   setVisibility = (newVisibility) => {
     this.setState({
       isVisible: newVisibility,
     });
-  }
+  };
 
   render = () => {
-    const player = <audio ref={(ref) => {this.player = ref; }} />;
+    const player = <audio ref={ (ref) => {
+      this.player = ref;
+    } }/>;
     if (this.state.isVisible) {
       return (
-        <div>
-          <div className="Countdown"><this.ShowCountdown /> <FaClock /></div><br /><br />
-          <this.ToggleRunning /> <this.ResetButton />
-          {player}
-        </div>
+          <div>
+            <div className="Countdown">
+              <this.ShowCountdown />
+              <FaClock />
+            </div>
+            <br /><br />
+            <this.ToggleRunning />
+            <this.ResetButton />
+            { player }
+          </div>
       );
     } else {
       return (
-        <div>
-          {player}
-        </div>
+          <div>
+            { player }
+          </div>
       );
     }
-  }
+  };
 }
 
 export default Countdown;
