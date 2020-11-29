@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/React-Timer-App/static/css/main.79eed649.chunk.css",
+    "main.js": "/React-Timer-App/static/js/main.65f3befb.chunk.js",
+    "runtime~main.js": "/React-Timer-App/static/js/runtime~main.f63064c6.js",
+    "static/css/2.bab5ebaa.chunk.css": "/React-Timer-App/static/css/2.bab5ebaa.chunk.css",
+    "static/js/2.a62101c4.chunk.js": "/React-Timer-App/static/js/2.a62101c4.chunk.js",
+    "index.html": "/React-Timer-App/index.html",
+    "precache-manifest.57313dc3d6680c7e63eb86ed18ed4d12.js": "/React-Timer-App/precache-manifest.57313dc3d6680c7e63eb86ed18ed4d12.js",
+    "service-worker.js": "/React-Timer-App/service-worker.js"
+  }
+}
