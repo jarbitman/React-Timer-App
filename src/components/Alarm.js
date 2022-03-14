@@ -12,7 +12,7 @@ class Alarm extends React.Component {
       isVisible: false,
       currentAlarm: new Date(),
       dingSound: 'ding.mp3',
-      alarmFormat: 'MM-DD-YYYY i:mm:ss a',
+      alarmFormat: 'MM/DD/YYYY i:mm:ss a',
       player: null,
     };
   }
@@ -22,7 +22,7 @@ class Alarm extends React.Component {
     return <ul>
       { this.state.alarms.map((alarm, i) => {
         return (
-            <li key={ i } className="alarm" data-alarmTime={ alarm.toString() }>
+            <li key={ i } className="alarm" data-alarmtime={ alarm.toString() }>
               <FaClock/> Alarm { padNumber(i + 1, padAlarmsTo) }: { formatDateTime(this.state.alarmFormat, alarm) }
               <FaTrashAlt onClick={ this.deleteAlarm }/>
             </li>
@@ -52,6 +52,10 @@ class Alarm extends React.Component {
   };
 
   filterAlarmArray = (alarms, timeouts, itemToRemove) => {
+    if (!itemToRemove) {
+      return [alarms, timeouts];
+    }
+
     let newAlarms = [];
     let newTimeouts = [];
 
@@ -67,7 +71,7 @@ class Alarm extends React.Component {
   };
 
   deleteAlarm = (e) => {
-    const [alarms, timeouts] = this.filterAlarmArray(this.state.alarms, this.state.timeouts, e.target.closest(".alarm").dataset.alarmTime.value);
+    const [alarms, timeouts] = this.filterAlarmArray(this.state.alarms, this.state.timeouts, e.target.closest(".alarm").dataset.alarmtime);
     this.setState(() => ({
       alarms: alarms,
       timeouts: timeouts,
